@@ -5,10 +5,21 @@ import '../styles/Home.css';
 function Home({ onGeneratePlan, onStartExam, onShowProgress }) {
   const [topic, setTopic] = useState('');
   const [difficulty, setDifficulty] = useState('');
+  const [error, setError] = useState('');
+
+  const handleGeneratePlan = () => {
+    if (!topic.trim() || !/[a-zA-Z0-9]/.test(topic)) {
+      setError('Por favor, introduce un tema válido.');
+    } else {
+      setError('');
+      onGeneratePlan(topic, difficulty);
+    }
+  };
 
   return (
     <div className="home">
       <h1>Plan de Estudios Interactivo</h1>
+      {error && <p className="error-message">{error}</p>}
       <div className="input-container">
         <input 
           type="text" 
@@ -39,8 +50,8 @@ function Home({ onGeneratePlan, onStartExam, onShowProgress }) {
       </div>
       <button 
         className="generate-button" 
-        onClick={() => onGeneratePlan(topic, difficulty)}
-        disabled={!topic || !difficulty}
+        onClick={handleGeneratePlan}
+        disabled={!difficulty}
       >
         Generar Plan de Estudios
       </button>

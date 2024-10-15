@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { generateQuestions, validateAnswer } from '../services/aiService';
-// import examImage from '../assets/examImage.png'; // Comentado
+import '../styles/Exam.css'; // Asegúrate de que el CSS esté importado
 
 function Exam({ topic, difficulty = 'medium', onComplete }) {
   const [currentQuestion, setCurrentQuestion] = useState(0);

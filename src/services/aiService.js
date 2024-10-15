@@ -1,45 +1,7 @@
-// Comentamos la definición de testBank por ahora, ya que no lo estamos usando
-// const testBank = { ... };
-
 import axios from 'axios';
 
 // Configura la clave de la API de OpenAI
 const OPENAI_API_KEY = process.env.REACT_APP_OPENAI_API_KEY; // Asegúrate de configurar esta variable de entorno
-
-async function fetchOpenAIQuestions(topic, difficulty) {
-    const prompt = `
-    Crea un examen sobre el tema "${topic}". Genera una pregunta con 4 opciones, donde solo una sea correcta. La dificultad debe ser ${difficulty}. 
-    Formato:
-    Pregunta:
-    Opciones:
-    1. Opción 1
-    2. Opción 2
-    3. Opción 3
-    4. Opción 4
-    Respuesta correcta:
-    `;
-
-    try {
-        const response = await axios.post('https://api.openai.com/v1/completions', {
-            model: 'text-davinci-003', // Puedes ajustar el modelo
-            prompt: prompt,
-            max_tokens: 150,
-            temperature: 0.7,
-        }, {
-            headers: {
-                'Authorization': `Bearer ${OPENAI_API_KEY}`,
-                'Content-Type': 'application/json',
-            },
-        });
-
-        const generatedText = response.data.choices[0].text.trim();
-        return parseGeneratedExam(generatedText);
-
-    } catch (error) {
-        console.error('Error al obtener la pregunta:', error);
-        return null;
-    }
-}
 
 function parseGeneratedExam(generatedText) {
     const questionMatch = generatedText.match(/Pregunta:(.*)/);

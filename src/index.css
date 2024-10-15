@@ -1,0 +1,118 @@
+:root {
+  --primary-blue: #4a90e2;
+  --primary-green: #66bb6a;
+  --light-gray: #f5f5f5;
+  --text-color: #333333;
+  --pastel-green: #a8e6cf;
+  --pastel-red: #ffafaf;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--light-gray);
+  color: var(--text-color);
+}
+
+.App {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.exam, .exam-results, .progress, .study-plan {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+h1, h2, h3 {
+  color: var(--primary-blue);
+}
+
+.question {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  color: var(--text-color);
+}
+
+.options-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.options-list li {
+  margin-bottom: 10px;
+}
+
+.options-list button {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background-color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  color: var(--text-color);
+}
+
+.options-list button:hover {
+  background-color: var(--light-gray);
+}
+
+.options-list button.correct {
+  background-color: var(--pastel-green);
+}
+
+.options-list button.incorrect {
+  background-color: var(--pastel-red);
+}
+
+button {
+  padding: 10px 20px;
+  background-color: var(--primary-blue);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #3a7bd5;
+}
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.difficulty-button.easy {
+  background-color: var(--pastel-green);
+  color: var(--text-color);
+}
+
+.difficulty-button.medium {
+  background-color: #fff176;
+  color: var(--text-color);
+}
+
+.difficulty-button.hard {
+  background-color: var(--pastel-red);
+  color: var(--text-color);
+}
+
+.feedback {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: var(--light-gray);
+  border-radius: 4px;
+  font-weight: bold;
+}

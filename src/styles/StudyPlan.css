@@ -18,6 +18,11 @@
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
+.study-plan h1, .study-plan h2, .study-plan h3, .study-plan p {
+  font-weight: bold; /* Aplica negrita */
+  font-size: 2rem; /* Aumenta el tamaño de la fuente */
+}
+
 .study-plan::before {
   content: '';
   position: absolute;
@@ -32,4 +37,26 @@
 .study-plan > * {
   position: relative;
   z-index: 2;
+}
+
+/* Media Queries para pantallas más pequeñas */
+@media (max-width: 768px) {
+  .study-plan h1, .study-plan h2, .study-plan h3, .study-plan p {
+    font-size: 1.5rem; /* Reduce el tamaño del texto en pantallas pequeñas */
+  }
+}
+
+.difficulty-button.easy {
+  background-color: #388e3c; /* Azul más oscuro para el nivel fácil */
+  color: white;
+}
+
+.difficulty-button.medium {
+  background-color: #ffb300; /* Azul más oscuro para el nivel medio */
+  color: black;
+}
+
+.difficulty-button.hard {
+  background-color: #d32f2f; /* Azul más oscuro para el nivel difícil */
+  color: white;
 }

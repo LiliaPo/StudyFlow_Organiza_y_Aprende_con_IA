@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getProgress } from '../services/aiService';
-// import progressImage from '../assets/progressImage.png'; // Comentado
+import '../styles/Progress.css';
 
 function Progress({ results, onContinue }) {
   const [progress, setProgress] = useState(null);
@@ -35,7 +35,7 @@ function Progress({ results, onContinue }) {
           <p>Fecha: {new Date(progress.lastExam.date).toLocaleDateString()}</p>
         </>
       )}
-      <button onClick={onContinue}>Continuar</button>
+      <button onClick={() => onContinue('home')}>Continuar</button>
     </div>
   );
 }

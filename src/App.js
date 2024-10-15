@@ -36,7 +36,6 @@ function App() {
           difficulty={currentDifficulty}
           onComplete={(result) => {
             setExamResults([...examResults, { difficulty: currentDifficulty, score: result }]);
-            // Guardar progreso (en una implementación real, pasaríamos el ID del usuario actual)
             saveProgress('user123', topic, currentDifficulty, result);
             setCurrentView('progress');
           }} 
@@ -44,15 +43,7 @@ function App() {
       case 'progress':
         return <Progress 
           results={examResults} 
-          onContinue={() => {
-            if (examResults[examResults.length - 1].score >= 0.7) {
-              if (currentDifficulty === 'easy') setCurrentDifficulty('medium');
-              else if (currentDifficulty === 'medium') setCurrentDifficulty('hard');
-              else setCurrentView('home');
-            }
-            setCurrentView('studyPlan');
-          }}
-          onHome={() => setCurrentView('home')}
+          onContinue={(view) => setCurrentView(view)}
         />;
       default:
         return <Home />;

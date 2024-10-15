@@ -1,5 +1,5 @@
 import React from 'react';
-// import studyPlanImage from '../assets/studyPlanImage.png'; // Comentado
+import '../styles/StudyPlan.css'; // Asegúrate de que el CSS esté importado
 
 function StudyPlan({ plan, onStartExam }) {
   return (

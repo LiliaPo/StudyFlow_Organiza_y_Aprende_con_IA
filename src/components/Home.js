@@ -2,17 +2,26 @@ import React, { useState } from 'react';
 import '../styles/Home.css';
 // import homeImage from '../assets/homeImage.png'; // Comentado
 
-function Home({ onGeneratePlan, onStartExam, onShowProgress }) {
+function Home({ onGenerateTest, onGenerateSummary, onShowProgress }) {
   const [topic, setTopic] = useState('');
   const [difficulty, setDifficulty] = useState('');
   const [error, setError] = useState('');
 
-  const handleGeneratePlan = () => {
+  const handleGenerateTest = () => {
     if (!topic.trim() || !/[a-zA-Z0-9]/.test(topic)) {
       setError('Por favor, introduce un tema válido.');
     } else {
       setError('');
-      onGeneratePlan(topic, difficulty);
+      onGenerateTest(topic, difficulty);
+    }
+  };
+
+  const handleGenerateSummary = () => {
+    if (!topic.trim() || !/[a-zA-Z0-9]/.test(topic)) {
+      setError('Por favor, introduce un tema válido.');
+    } else {
+      setError('');
+      onGenerateSummary(topic, difficulty); // Llama a la función para generar resumen
     }
   };
 
@@ -50,10 +59,16 @@ function Home({ onGeneratePlan, onStartExam, onShowProgress }) {
       </div>
       <button 
         className="generate-button" 
-        onClick={handleGeneratePlan}
+        onClick={handleGenerateTest}
         disabled={!difficulty}
       >
-        Generar Plan de Estudios
+        Generar Tests
+      </button>
+      <button 
+        className="generate-button" 
+        onClick={handleGenerateSummary}
+      >
+        Generar Resumen del Tema
       </button>
       <button 
         className="progress-button" 

@@ -1,32 +1,37 @@
 import axios from 'axios';
 
-// Configura la clave de la API de OpenAI
-const OPENAI_API_KEY = process.env.REACT_APP_OPENAI_API_KEY; // Asegúrate de configurar esta variable de entorno
-
-function parseGeneratedExam(generatedText) {
-    const questionMatch = generatedText.match(/Pregunta:(.*)/);
-    const optionsMatch = generatedText.match(/Opciones:(.*)(\d\.\s.*\n\d\.\s.*\n\d\.\s.*\n\d\.\s.*)/s);
-    const answerMatch = generatedText.match(/Respuesta correcta:(.*)/);
-
-    const question = questionMatch ? questionMatch[1].trim() : '';
-    const options = optionsMatch ? optionsMatch[2].split('\n').map(opt => opt.trim()) : [];
-    const correctAnswer = answerMatch ? answerMatch[1].trim() : '';
-
-    return { question, options, correctAnswer };
+// Función para obtener información del tema desde Wikipedia
+export async function obtenerInformacionTema(topic) {
+  const url = `https://es.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=extracts&exintro=&explaintext=&titles=${encodeURIComponent(topic)}`;
+  
+  try {
+    const response = await axios.get(url);
+    const page = response.data.query.pages;
+    const pageId = Object.keys(page)[0];
+    return page[pageId].extract || "No se encontró información.";
+  } catch (error) {
+    console.error('Error al obtener información del tema:', error);
+    return "Error al obtener información.";
+  }
 }
 
-export async function generateQuestions(topic, difficulty = 'medium', count = 10) {
-  // Generación de preguntas simuladas
-  const questions = Array.from({ length: count }, (_, i) => ({
-    question: `Pregunta ${i + 1} sobre ${topic}`,
-    options: [
-      `Opción 1 para ${topic}`,
-      `Opción 2 para ${topic}`,
-      `Opción 3 para ${topic}`,
-      `Opción 4 para ${topic}`
-    ],
-    correct: Math.floor(Math.random() * 4)
-  }));
+// Función para generar preguntas basadas en el tema
+export async function generateQuestions(topic, count = 10) {
+  const questions = [];
+
+  for (let i = 0; i < count; i++) {
+    questions.push({
+      question: `¿Qué puedes decir sobre ${topic}?`,
+      options: [
+        `Información incorrecta relacionada con ${topic} ${i + 1}`,
+        `Información correcta sobre ${topic}`, // Respuesta correcta
+        `Otra información incorrecta sobre ${topic} ${i + 2}`,
+        `Más información incorrecta sobre ${topic} ${i + 3}`
+      ],
+      correct: 1 // La respuesta correcta es la segunda opción (índice 1)
+    });
+  }
+
   return questions;
 }
 
@@ -67,4 +72,25 @@ export function getProgress(userId) {
       date: new Date().toISOString()
     }
   };
+}
+
+export async function generateSummary(topic, difficulty) {
+  let summary = '';
+
+  // Simulación de resúmenes basados en el nivel de dificultad
+  switch (difficulty) {
+    case 'easy':
+      summary = `Resumen básico sobre ${topic}: Este es un resumen simple.`;
+      break;
+    case 'medium':
+      summary = `Resumen intermedio sobre ${topic}: Este resumen proporciona más detalles sobre el tema.`;
+      break;
+    case 'hard':
+      summary = `Resumen avanzado sobre ${topic}: Este es un resumen detallado que cubre aspectos complejos del tema.`;
+      break;
+    default:
+      summary = `Resumen sobre ${topic}: Información general.`;
+  }
+
+  return summary;
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { generateQuestions, validateAnswer } from '../services/aiService';
 import '../styles/Exam.css'; // Asegúrate de que el CSS esté importado
 
-function Exam({ topic, difficulty = 'medium', onComplete }) {
+function Exam({ topic, onComplete }) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [questions, setQuestions] = useState([]);
@@ -15,12 +15,8 @@ function Exam({ topic, difficulty = 'medium', onComplete }) {
   useEffect(() => {
     async function fetchQuestions() {
       try {
-        const generatedQuestions = await generateQuestions(topic, difficulty);
-        if (generatedQuestions && generatedQuestions.length > 0) {
-          setQuestions(generatedQuestions);
-        } else {
-          console.error('No se generaron preguntas válidas.');
-        }
+        const generatedQuestions = await generateQuestions(topic);
+        setQuestions(generatedQuestions);
       } catch (error) {
         console.error('Error al generar preguntas:', error);
       } finally {
@@ -28,7 +24,7 @@ function Exam({ topic, difficulty = 'medium', onComplete }) {
       }
     }
     fetchQuestions();
-  }, [topic, difficulty]);
+  }, [topic]);
 
   const handleAnswer = (selectedOption) => {
     setSelectedAnswer(selectedOption);

@@ -116,3 +116,7 @@ button:disabled {
   border-radius: 4px;
   font-weight: bold;
 }
+
+.titulo-centrado {
+    text-align: center;
+}

@@ -64,6 +64,7 @@ function App() {
 
   return (
     <div className="App">
+      <h1 style={{ textAlign: 'center' }}>StudyFlow: Organiza y Aprende</h1>
       {renderView()}
     </div>
   );
